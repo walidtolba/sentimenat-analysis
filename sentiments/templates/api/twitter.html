@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Twitter Sentiment Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #1DA1F2;
+            text-align: center;
+            padding: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        input[type="text"] {
+            margin: 10px 0;
+            padding: 10px;
+            width: 300px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #1DA1F2;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        h2 {
+            text-align: center;
+            color: #1DA1F2;
+        }
+        p {
+            text-align: center;
+        }
+        .tweet-text, .sentiment-result {
+            font-size: 1.2em;
+            color: #333;
+            margin: 20px auto;
+            width: 80%;
+            text-align: center;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .sentiment-result {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .sentiment {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .sentiment h3 {
+            margin: 0;
+            color: #333;
+        }
+        .sentiment p {
+            margin: 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Twitter Sentiment Analysis</h1>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/512px-Logo_of_Twitter.svg.png" alt="Twitter Logo" style="display: block; margin: 0 auto;width:150px">
+    <form method="GET">
+        {% csrf_token %}
+        <label for="tweet_url">Tweet URL:</label><br>
+        <input type="text" id="tweet_url" name="url"><br>
+        <input type="submit" value="Analyze">
+    </form>
+    {% if tweet_text and sentiment_result %}
+    <div class="tweet-text">
+        <h2>Tweet Text:</h2>
+        <p>{{ tweet_text }}</p>
+    </div>
+    <div class="sentiment-result">
+        <h2>Sentiment Result:</h2>
+        {% for sentiment in sentiment_result %}
+            <div class="sentiment">
+                <h3>{{ sentiment.label|title }}</h3>
+                <p>{{ sentiment.score }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</body>
+</html>

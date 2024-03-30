@@ -1,0 +1,4 @@
+django
+playwright
+jmespath
+scrapfly-sdk
